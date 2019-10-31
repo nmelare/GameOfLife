@@ -25,7 +25,6 @@ class GameViewController: UIViewController {
         scnView.allowsCameraControl = true
 
         scnView.backgroundColor = UIColor.black
-            
         
         // create and add a camera to the scene
         let cameraNode = SCNNode()
@@ -33,7 +32,7 @@ class GameViewController: UIViewController {
         scene.rootNode.addChildNode(cameraNode)
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 15)
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: 20)
         
         // create and add a light to the scene
         let lightNode = SCNNode()
@@ -87,7 +86,8 @@ class GameViewController: UIViewController {
                 SCNTransaction.commit()
             }
             
-            material.emission.contents = UIColor.red
+            material.emission.contents = UIColor.yellow
+            material.diffuse.contents = UIColor.yellow
             
             SCNTransaction.commit()
         }
