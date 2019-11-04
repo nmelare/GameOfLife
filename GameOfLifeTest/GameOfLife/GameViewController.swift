@@ -10,7 +10,7 @@ import UIKit
 import QuartzCore
 import SceneKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, SCNSceneRendererDelegate {
     
     let scene = GameScene()
     let manager = Manager()
@@ -20,9 +20,10 @@ class GameViewController: UIViewController {
     
     @IBAction func playButton(_ sender: Any) {
         
-        scene.individuals = manager.jailorKillerOrRevival(grid: scene.individuals)
+        isRunning = !isRunning
         
     }
+    
     @IBOutlet weak var scnView: SCNView!
     
     override func viewDidLoad() {
@@ -38,7 +39,7 @@ class GameViewController: UIViewController {
         scene.rootNode.addChildNode(cameraNode)
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 0, y: 0, z: 20)
+        cameraNode.position = SCNVector3(x: 0, y: 0, z: 25)
         
         // create and add a light to the scene
         let lightNode = SCNNode()
@@ -57,6 +58,21 @@ class GameViewController: UIViewController {
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
+        
+        scnView.delegate = self
+        scnView.isPlaying = true
+        scnView.loops = true
+    }
+    
+    var nextTime: TimeInterval = 0
+    let interval: TimeInterval = 0.3
+    var isRunning: Bool = false
+    
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if time >= nextTime && isRunning == true {
+            manager.jailorKillerOrRevival(grid: scene.individuals)
+            nextTime = time + interval
+        }
     }
     
     @objc

@@ -41,8 +41,8 @@ class Cell : SCNNode {
         self.y = y
         self.isAlive = false
         super.init()
-        self.geometry = SCNBox(width: 0.6 , height: 0.6,
-                               length: 0.08, chamferRadius: 0.005)
+        self.geometry = SCNBox(width: 0.8 , height: 0.8,
+                               length: 0.8, chamferRadius: 0.8)
         dead()
     }
     

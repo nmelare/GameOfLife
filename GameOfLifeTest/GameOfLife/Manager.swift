@@ -12,42 +12,42 @@ import SceneKit
 // Cuidar das regras do jogo
 class Manager {
     
-    func jailorKillerOrRevival(grid : [[Cell]]) -> [[Cell]] {
-        var newGrid : [[Cell]] = []
+    func jailorKillerOrRevival(grid : [[Cell]]) {
+        var newGrid : [[Bool]] = []
         var count = 0
         
         for y in (0..<grid.count) {
             newGrid.append([])
             for x in (0..<grid[y].count) {
-                newGrid[y].append(grid[y][x])
+                newGrid[y].append(grid[y][x].isAlive)
             }
         }
+        
         for y in (0..<grid.count) {
             for x in (0..<grid[y].count) {
-                count = janitorCheckNeighbours(grid: grid, x: x, y: y)
-                newGrid[y][x] = godfatherMobsterOrderToKillOrRevive(grid: grid, x: x, y: y, count: count)
+                count = janitorCheckNeighbours(grid: newGrid, x: x, y: y)
+                grid[y][x].isAlive = godfatherMobsterOrderToKillOrRevive(grid: newGrid, x: x, y: y, count: count)
             }
         }
-        return newGrid
     }
     
-    func janitorCheckNeighbours (grid : [[Cell]], x: Int, y: Int) -> Int {
+    func janitorCheckNeighbours (grid : [[Bool]], x: Int, y: Int) -> Int {
         var count = 0
         
         if y-1 >= 0 && y-1 < grid.count {
             if x-1 >= 0 && x-1 < grid[y-1].count {
-                if grid[y-1][x-1].isAlive == true {
+                if grid[y-1][x-1] == true {
                     count += 1
                 }
             }
             if x >= 0 && x < grid[y-1].count {
-                if grid[y-1][x].isAlive == true {
+                if grid[y-1][x] == true {
                     count += 1
                 }
             }
             
             if x+1 >= 0 && x+1 < grid[y-1].count {
-                if grid[y-1][x+1].isAlive == true {
+                if grid[y-1][x+1] == true {
                     count += 1
                 }
             }
@@ -55,13 +55,13 @@ class Manager {
         
         if y >= 0 && y < grid.count {
             if x-1 >= 0 && x-1 < grid[y].count {
-                if grid[y][x-1].isAlive == true {
+                if grid[y][x-1] == true {
                     count += 1
                 }
             }
             
             if x+1 >= 0 && x+1 < grid[y].count {
-                if grid[y][x+1].isAlive == true {
+                if grid[y][x+1] == true {
                     count += 1
                 }
             }
@@ -69,18 +69,18 @@ class Manager {
         
         if y+1 >= 0 && y+1 < grid.count {
             if x-1 >= 0 && x-1 < grid[y+1].count {
-                if grid[y+1][x-1].isAlive == true {
+                if grid[y+1][x-1] == true {
                     count += 1
                 }
             }
             if x >= 0 && x < grid[y+1].count {
-                if grid[y+1][x].isAlive == true {
+                if grid[y+1][x] == true {
                     count += 1
                 }
             }
             
             if x+1 >= 0 && x+1 < grid[y+1].count {
-                if grid[y+1][x+1].isAlive == true {
+                if grid[y+1][x+1] == true {
                     count += 1
                 }
             }
@@ -89,18 +89,20 @@ class Manager {
     }
     
     
-    func godfatherMobsterOrderToKillOrRevive(grid : [[Cell]], x: Int, y: Int, count: Int) -> Cell {
+    func godfatherMobsterOrderToKillOrRevive(grid : [[Bool]], x: Int, y: Int, count: Int) -> Bool {
         
-        if grid[y][x].isAlive == true {
+        if grid[y][x] == true {
             if count <= 1 || count >= 4 {
-                grid[y][x].isAlive = false
+                return false
+            } else {
+                return true
             }
-        } else if grid[y][x].isAlive == false {
+        } else {
             if count == 3 {
-                grid[y][x].isAlive = true
+                return true
             }
         }
-        return grid[y][x]
+        return false
     }
     
 }
