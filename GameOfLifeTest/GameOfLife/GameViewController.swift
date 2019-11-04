@@ -47,10 +47,7 @@ class GameViewController: UIViewController {
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.darkGray
         scene.rootNode.addChildNode(ambientLightNode)
-        
-        // retrieve the ship node
-//        let ship = scene.rootNode.childNode(withName: "box", recursively: true)!
-               
+           
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
@@ -69,27 +66,13 @@ class GameViewController: UIViewController {
             // retrieved the first clicked object
             let result = hitResults[0]
             
-            // get its material
-            let material = result.node.geometry!.firstMaterial!
-            
-            // highlight it
-            SCNTransaction.begin()
-            SCNTransaction.animationDuration = 0.5
-            
-            // on completion - unhighlight
-            SCNTransaction.completionBlock = {
-                SCNTransaction.begin()
-                SCNTransaction.animationDuration = 0.5
-                
-                material.emission.contents = UIColor.black
-                
-                SCNTransaction.commit()
+            if let cell = result.node as? Cell {
+                if cell.isAlive == false {
+                    cell.isAlive = true
+                } else {
+                    cell.isAlive = false
+                }
             }
-            
-            material.emission.contents = UIColor.yellow
-            material.diffuse.contents = UIColor.yellow
-            
-            SCNTransaction.commit()
         }
     }
     

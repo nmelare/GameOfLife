@@ -11,26 +11,37 @@ import SceneKit
 
 class GameScene: SCNScene {
     
+ // Nossa matriz (que vai ser nossa grid) inicializada vazia
+    var individuals = [[Cell]]()
+    
     override init() {
         super.init()
 
-            for xIndex:Int in 0...32 {
-                for yIndex:Int in 0...32 {
-                    let box = SCNBox(width: 0.6 , height: 0.6,
-                                             length: 0.1, chamferRadius: 0.005)
-                      box.firstMaterial?.diffuse.contents = UIColor.red
-                      box.firstMaterial?.emission.contents = UIColor.darkGray
-                      let boxnode = SCNNode(geometry: box)
-                      let offset: Int = 10
-                    let boxCopy = boxnode.copy() as! SCNNode
-                    boxCopy.position.x = Float(xIndex - offset)
-                    boxCopy.position.y = Float(yIndex - offset)
-                    self.rootNode.addChildNode(boxCopy)
+                // Populando a matriz
+                for row:Int in 0...32 {
+                    // fazendo linhas com elementos
+                    var singleRow = [Cell]()
+                    
+                    for col:Int in 0...32 {
+                        
+                        let individual = Cell(x: col, y: row)
+
+                        let offset: Int = 16
+                        
+                        individual.position.x = Float(row - offset)
+                        individual.position.y = Float(col - offset)
+
+                        singleRow.append(individual)
+
+                        self.rootNode.addChildNode(individual)
+                    }
+                    // Adiciona essas linhas dentro da matriz
+                    individuals.append(singleRow)
                 }
+                // Cada vez que o código percorre esse for, nos adicionamos uma coluna dentro da matriz
             }
-        }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
+
+            required init?(coder aDecoder: NSCoder) {
+                super.init(coder: aDecoder)
+            }
 }
