@@ -30,12 +30,11 @@ class Cell : SCNNode {
         self.geometry?.firstMaterial?.emission.contents = UIColor.yellow
         self.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
     }
-
-
+    
     // As coordenadas do cubo
     let x : Int
     let y : Int
-
+    
     // Inicializando
     init(x: Int, y: Int) {
         self.x = x
@@ -43,10 +42,11 @@ class Cell : SCNNode {
         self.isAlive = false
         super.init()
         self.geometry = SCNBox(width: 0.6 , height: 0.6,
-                              length: 0.08, chamferRadius: 0.005)
+                               length: 0.08, chamferRadius: 0.005)
         dead()
-}
-required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-}
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

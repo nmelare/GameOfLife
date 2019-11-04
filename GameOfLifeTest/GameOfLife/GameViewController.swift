@@ -11,19 +11,25 @@ import QuartzCore
 import SceneKit
 
 class GameViewController: UIViewController {
-
+    
+    let scene = GameScene()
+    let manager = Manager()
+    
+    @IBOutlet weak var playButton: UIButton!
+    
+    
+    @IBAction func playButton(_ sender: Any) {
+        
+        scene.individuals = manager.jailorKillerOrRevival(grid: scene.individuals)
+        
+    }
+    @IBOutlet weak var scnView: SCNView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-            // create a new scene
-        let scene = GameScene()
-            
-        let scnView = self.view as! SCNView
-                   
         scnView.scene = scene
-                   
         scnView.allowsCameraControl = true
-
         scnView.backgroundColor = UIColor.black
         
         // create and add a camera to the scene
@@ -47,7 +53,7 @@ class GameViewController: UIViewController {
         ambientLightNode.light!.type = .ambient
         ambientLightNode.light!.color = UIColor.darkGray
         scene.rootNode.addChildNode(ambientLightNode)
-           
+        
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         scnView.addGestureRecognizer(tapGesture)
@@ -55,8 +61,6 @@ class GameViewController: UIViewController {
     
     @objc
     func handleTap(_ gestureRecognize: UIGestureRecognizer) {
-        // retrieve the SCNView
-        let scnView = self.view as! SCNView
         
         // check what nodes are tapped
         let p = gestureRecognize.location(in: scnView)
@@ -91,5 +95,5 @@ class GameViewController: UIViewController {
             return .all
         }
     }
-
+    
 }
