@@ -12,31 +12,37 @@ import SceneKit
 class GameScene: SCNScene {
     
     // Nossa matriz (que vai ser nossa grid) inicializada vazia
-    var individuals = [[Cell]]()
+    var grid = [[Cell]]()
+    var gridIndividual = [[[Cell]]]()
+    var manager = Manager()
     
     override init() {
         super.init()
         
         // Populando a matriz
-        for row:Int in 0...32 {
+        for row:Int in 0...8 {
             // fazendo linhas com elementos
             var singleRow = [Cell]()
             
-            for col:Int in 0...32 {
+            for col:Int in 0...8 {
                 
-                let individual = Cell(x: col, y: row)
+//                for height: Int in 0...32 {
                 
-                let offset: Int = 16
+                let individual = Cell(x: col, y: row, z: 0)
+                
+                let offset: Int = 4
                 
                 individual.position.x = Float(row - offset)
                 individual.position.y = Float(col - offset)
+                
                 
                 singleRow.append(individual)
                 
                 self.rootNode.addChildNode(individual)
             }
             // Adiciona essas linhas dentro da matriz
-            individuals.append(singleRow)
+            grid.append(singleRow)
+            gridIndividual.append(self.grid)
         }
         // Cada vez que o código percorre esse for, nos adicionamos uma coluna dentro da matriz
     }
@@ -44,4 +50,28 @@ class GameScene: SCNScene {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    func zlayerController(_ interaction: Int) {
+        let newGrid = manager.engineerCreateNewGrids(oldGrid: grid, z: interaction)
+        createNewGrid(newGrid, interaction)
+        grid = newGrid
+    }
+    
+    func createNewGrid(_ newGrid: [[Cell]], _ interaction: Int) {
+        for row:Int in 0...8 {
+            for col:Int in 0...8 {
+                let individual = newGrid[row][col]
+                let offset: Int = 4
+                
+                individual.position.x = Float(row - offset)
+                individual.position.y = Float(col - offset)
+                individual.position.z = Float(Double(interaction) * (0.8 + 0.5))
+                                
+                if (individual.exists) {
+                    self.rootNode.addChildNode(individual)
+                }
+            }
+        }
+    }
+
 }

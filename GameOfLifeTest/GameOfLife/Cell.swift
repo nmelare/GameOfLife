@@ -13,37 +13,30 @@ class Cell : SCNNode {
     // Se o nosso individuo está vivo ou morto
     var isAlive: Bool {
         willSet {
-            if newValue == false {
-                dead()
-            } else {
-                alive()
-            }
+            self.geometry?.firstMaterial?.diffuse.contents = newValue ? UIColor.yellow : UIColor.red
+            self.geometry?.firstMaterial?.emission.contents = newValue ? UIColor.yellow : UIColor.darkGray
         }
     }
-    
-    func dead() {
-        self.geometry?.firstMaterial?.diffuse.contents = UIColor.red
-        self.geometry?.firstMaterial?.emission.contents = UIColor.darkGray
-    }
-    
-    func alive() {
-        self.geometry?.firstMaterial?.emission.contents = UIColor.yellow
-        self.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
+    var exists: Bool = true
+
+    func thanos() {
+        self.geometry?.firstMaterial = nil
     }
     
     // As coordenadas do cubo
     let x : Int
     let y : Int
+    let z : Int
     
     // Inicializando
-    init(x: Int, y: Int) {
+    init(x: Int, y: Int, z: Int) {
         self.x = x
         self.y = y
+        self.z = z
         self.isAlive = false
         super.init()
         self.geometry = SCNBox(width: 0.8 , height: 0.8,
                                length: 0.8, chamferRadius: 0.8)
-        dead()
     }
     
     required init?(coder: NSCoder) {

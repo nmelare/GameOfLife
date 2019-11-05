@@ -37,7 +37,6 @@
                         <viewLayoutGuide key="safeArea" id="h7w-5I-SPd"/>
                     </view>
                     <connections>
-                        <outlet property="playButton" destination="Qom-1c-KGn" id="zer-8J-17K"/>
                         <outlet property="scnView" destination="3se-qz-xqx" id="C0B-Gj-uHo"/>
                     </connections>
                 </viewController>

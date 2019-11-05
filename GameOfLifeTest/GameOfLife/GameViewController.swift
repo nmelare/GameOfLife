@@ -14,10 +14,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     
     let scene = GameScene()
     let manager = Manager()
-    
-    @IBOutlet weak var playButton: UIButton!
-    
-    
+     
     @IBAction func playButton(_ sender: Any) {
         
         isRunning = !isRunning
@@ -65,13 +62,16 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     }
     
     var nextTime: TimeInterval = 0
-    let interval: TimeInterval = 0.3
+    let interval: TimeInterval = 4
     var isRunning: Bool = false
+    var interection : Int = 1
     
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         if time >= nextTime && isRunning == true {
-            manager.jailorKillerOrRevival(grid: scene.individuals)
+//            manager.jailorKillerOrRevival(grid: scene.grid)
+            scene.zlayerController(interection)
             nextTime = time + interval
+            interection += 1
         }
     }
     
