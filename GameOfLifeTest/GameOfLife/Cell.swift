@@ -14,14 +14,15 @@ class Cell : SCNNode {
     var isAlive: Bool {
         willSet {
             self.geometry?.firstMaterial?.diffuse.contents = newValue ? UIColor.yellow : UIColor.red
-            self.geometry?.firstMaterial?.emission.contents = newValue ? UIColor.yellow : UIColor.darkGray
+            self.geometry?.firstMaterial?.emission.contents = newValue ? UIColor.orange : UIColor.darkGray
+            
+            if z % 2 == 1 && newValue == true {
+                self.geometry?.firstMaterial?.diffuse.contents = UIColor.purple
+                self.geometry?.firstMaterial?.emission.contents = UIColor.blue
+            }
         }
     }
     var exists: Bool = true
-
-    func thanos() {
-        self.geometry?.firstMaterial = nil
-    }
     
     // As coordenadas do cubo
     let x : Int
@@ -37,6 +38,8 @@ class Cell : SCNNode {
         super.init()
         self.geometry = SCNBox(width: 0.8 , height: 0.8,
                                length: 0.8, chamferRadius: 0.8)
+        self.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        self.geometry?.firstMaterial?.emission.contents = UIColor.darkGray
     }
     
     required init?(coder: NSCoder) {

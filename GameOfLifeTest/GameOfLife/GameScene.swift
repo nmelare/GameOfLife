@@ -15,26 +15,24 @@ class GameScene: SCNScene {
     var grid = [[Cell]]()
     var gridIndividual = [[[Cell]]]()
     var manager = Manager()
+    var size : Int = 16
+    let offset: Int = 8
+    
     
     override init() {
         super.init()
         
         // Populando a matriz
-        for row:Int in 0...8 {
+        for row:Int in 0...size {
             // fazendo linhas com elementos
             var singleRow = [Cell]()
             
-            for col:Int in 0...8 {
-                
-//                for height: Int in 0...32 {
-                
+            for col:Int in 0...size {
+  
                 let individual = Cell(x: col, y: row, z: 0)
-                
-                let offset: Int = 4
                 
                 individual.position.x = Float(row - offset)
                 individual.position.y = Float(col - offset)
-                
                 
                 singleRow.append(individual)
                 
@@ -44,7 +42,6 @@ class GameScene: SCNScene {
             grid.append(singleRow)
             gridIndividual.append(self.grid)
         }
-        // Cada vez que o código percorre esse for, nos adicionamos uma coluna dentro da matriz
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,14 +55,12 @@ class GameScene: SCNScene {
     }
     
     func createNewGrid(_ newGrid: [[Cell]], _ interaction: Int) {
-        for row:Int in 0...8 {
-            for col:Int in 0...8 {
+        for row:Int in 0...size {
+            for col:Int in 0...size {
                 let individual = newGrid[row][col]
-                let offset: Int = 4
-                
                 individual.position.x = Float(row - offset)
                 individual.position.y = Float(col - offset)
-                individual.position.z = Float(Double(interaction) * (0.8 + 0.5))
+                individual.position.z = Float(Double(interaction) * (0.8 + 0.3))
                                 
                 if (individual.exists) {
                     self.rootNode.addChildNode(individual)
@@ -73,5 +68,4 @@ class GameScene: SCNScene {
             }
         }
     }
-
 }

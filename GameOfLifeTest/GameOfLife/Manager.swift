@@ -10,26 +10,7 @@ import Foundation
 import SceneKit
 
 // Cuidar das regras do jogo
-class Manager {
-    
-    func jailorKillerOrRevival(grid : [[Cell]], z: Int) {
-        var newGrid : [[Cell]] = []
-        var count = 0
-        
-        for y in (0..<grid.count) {
-            newGrid.append([])
-            for x in (0..<grid[y].count) {
-                newGrid[y].append(cloneCell(oldCell: grid[y][x], z: z))
-            }
-        }
-        
-        for y in (0..<grid.count) {
-            for x in (0..<grid[y].count) {
-                count = janitorCheckNeighbours(grid: newGrid, x: x, y: y)
-                grid[y][x].isAlive = godfatherMobsterOrderToKillOrRevive(grid: newGrid, x: x, y: y, count: count)
-            }
-        }
-    }
+class Manager {    
     
     func janitorCheckNeighbours (grid : [[Cell]], x: Int, y: Int) -> Int {
         var count = 0
@@ -117,15 +98,9 @@ class Manager {
                 let alive = godfatherMobsterOrderToKillOrRevive(grid: newGrid, x: x, y: y, count: count)
                 newGrid[y][x].isAlive = alive
                 newGrid[y][x].exists = alive
+                
             }
         }
-        
-//        for y in (0..<oldGrid.count) {
-//            for x in (0..<oldGrid[y].count) {
-//                count = janitorCheckNeighbours(grid: newGrid, x: x, y: y)
-//                oldGrid[y][x].isAlive = godfatherMobsterOrderToKillOrRevive(grid: newGrid, x: x, y: y, count: count)
-//            }
-//        }
         return newGrid
     }
     
