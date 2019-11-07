@@ -20,9 +20,12 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </sceneKitView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qom-1c-KGn">
-                                <rect key="frame" x="24" y="737" width="76" height="86"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qom-1c-KGn">
+                                <rect key="frame" x="24" y="750.5" width="76" height="72.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="76" id="ISw-eg-lql"/>
+                                    <constraint firstAttribute="width" constant="76" id="KJC-hT-WSV"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <color key="tintColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <state key="normal" title="Next " backgroundImage="play.fill" catalog="system">
@@ -34,6 +37,10 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Qom-1c-KGn" firstAttribute="leading" secondItem="h7w-5I-SPd" secondAttribute="leading" constant="24" id="FZU-qJ-KOy"/>
+                            <constraint firstItem="h7w-5I-SPd" firstAttribute="bottom" secondItem="Qom-1c-KGn" secondAttribute="bottom" constant="37" id="tWr-W6-3Bz"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="h7w-5I-SPd"/>
                     </view>
                     <connections>

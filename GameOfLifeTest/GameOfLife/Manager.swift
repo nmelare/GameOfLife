@@ -95,9 +95,9 @@ class Manager {
             for x in (0..<oldGrid[y].count) {
                 newGrid[y].append(cloneCell(oldCell: oldGrid[y][x], z: z))
                 count = janitorCheckNeighbours(grid: oldGrid, x: x, y: y)
-                let alive = godfatherMobsterOrderToKillOrRevive(grid: newGrid, x: x, y: y, count: count)
-                newGrid[y][x].isAlive = alive
-                newGrid[y][x].exists = alive
+                let state = godfatherMobsterOrderToKillOrRevive(grid: newGrid, x: x, y: y, count: count)
+                newGrid[y][x].isAlive = state
+                newGrid[y][x].exists = state
                 
             }
         }
