@@ -62,7 +62,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate {
     }
     
     var nextTime: TimeInterval = 0
-    let interval: TimeInterval = 4
+    let interval: TimeInterval = 0.3
     var isRunning: Bool = false
     var interection : Int = 1
     

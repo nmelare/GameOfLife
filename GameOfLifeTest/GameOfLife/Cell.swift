@@ -37,6 +37,7 @@ class Cell : SCNNode {
         super.init()
         self.geometry = SCNBox(width: 0.8 , height: 0.8,
                                length: 0.8, chamferRadius: 0.8)
+        self.geometry?.firstMaterial?.diffuse.contents = UIColor.red
     }
     
     required init?(coder: NSCoder) {
